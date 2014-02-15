@@ -1,0 +1,12 @@
+* What does it does?
+** Discovers haikus within the twitter stream
+** Retweets the best haikus
+** Gives a link to the text formatted as a haiku
+* Accounts
+** gmail: didyouhaiku@gmail.com
+** twitter: @didyouhaiku
+** website: didyouhaiku.com
+* Syllable counting
+* Haiku detection and formatting
+* Tweeting strategy
+* Web-site
