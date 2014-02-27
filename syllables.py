@@ -6,7 +6,7 @@ from nltk.corpus import cmudict
 
 class Syllables:
     CMU = cmudict.dict()
-    
+
     def __init__(self, word):
         self.word = word
         self.counts = self._count()
@@ -27,4 +27,3 @@ class Syllables:
     def _count(self):
         """ Return a list of the syllable counts for a word."""
         return self._count_CMU(self.word)
-
