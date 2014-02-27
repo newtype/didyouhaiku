@@ -1,4 +1,4 @@
-* What does it does?
+* What does it do?
 ** Discovers haikus within the twitter stream
 ** Retweets the best haikus
 ** Gives a link to the text formatted as a haiku
