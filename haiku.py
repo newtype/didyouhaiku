@@ -14,35 +14,27 @@ class Haiku:
         self.text = self.tokenizer.tokenize(text)
         self.phrases = self.phrases()
 
-    def sum_syllables(self, words, node, level=0):
+    def _is_valid(self, words, total=0, level=0):
+        print words, total
+        if (not words) and (total == self.level_maxes[-1]):
+            print 'hello'
+            return True
         if not words:
-            return
+            return False
         if level == len(self.level_maxes):
-            return
+            return False
         word = words[0]
         remnants = words[1:]
         for count in Syllables(word).counts:
-            total = node.value + count
+            total += count
             if total > self.level_maxes[level]:
                 continue
             elif total == self.level_maxes[level]:
                 level += 1
-            new_node = Node(total)
-            node.children.append(new_node)
-            self.sum_syllables(remnants, new_node, level)
-
-    def has_valid_haiku(self, root):
-        for child in root.children:
-            if child.value == self.level_maxes[-1]:
-                return True
-            else:
-                return self.has_valid_haiku(child)
-        return False
+            return self._is_valid(remnants, total, level)
 
     def is_valid(self):
-        root = Node()
-        self.sum_syllables(self.text, root)
-        return self.has_valid_haiku(root)
+        return self._is_valid(self.text)
 
     def is_valid2(self):
         return sum(Syllables(word).counts[0] for word in self.text) == sum(self.phrase_counts)

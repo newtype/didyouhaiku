@@ -5,6 +5,7 @@ from haiku import Haiku
 class TestHaiku(unittest.TestCase):
     def setUp(self):
         self.valid_haiku = Haiku('at the age old pond a frog leaps into water a deep resonance')
+        self.valid_haiku_multiple_prons = Haiku('word word probably {0}'.format('word ' * 12))
         self.invalid_haiku = Haiku('at the age old pond')
         self.tricky_invalid_haiku = Haiku('word word word elephant {0}'.format('word ' * 11))
 
@@ -13,6 +14,9 @@ class TestHaiku(unittest.TestCase):
 
     def test_valid_haiku(self):
         self.assertTrue(self.valid_haiku.is_valid())
+
+    def test_valid_haiku_multiple_prons(self):
+        self.assertTrue(self.valid_haiku_multiple_prons.is_valid())
 
     def test_right_syllables_wrong_phrasing(self):
         """ a potential haiku can have 17 syllables but a word that breaks
