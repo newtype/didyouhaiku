@@ -15,7 +15,7 @@ class Haiku:
         self.phrases = self.phrases()
 
     def _is_valid(self, words, total=0, level=0):
-        print words, total
+#        print words, total
         if (not words) and (total == self.level_maxes[-1]):
             print 'hello'
             return True
@@ -26,12 +26,18 @@ class Haiku:
         word = words[0]
         remnants = words[1:]
         for count in Syllables(word).counts:
-            total += count
-            if total > self.level_maxes[level]:
+            print(words)
+            print('count:{count}, total:{total}, level:{level}'.format(**locals()))
+            current_total = total + count
+            if current_total > self.level_maxes[level]:
                 continue
-            elif total == self.level_maxes[level]:
+            elif current_total == self.level_maxes[level]:
                 level += 1
-            return self._is_valid(remnants, total, level)
+            result = self._is_valid(remnants, current_total, level)
+            if result:
+                return True
+            else:
+                continue
 
     def is_valid(self):
         return self._is_valid(self.text)
