@@ -6,7 +6,6 @@ from tokenizer import Tokenizer
 
 class Haiku:
     phrase_counts = (5, 7, 5)
-    max_syllables = sum(phrase_counts)
     tokenizer = Tokenizer()
     level_maxes = [5, 12, 17]
 
