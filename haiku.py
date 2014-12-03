@@ -52,6 +52,3 @@ class Haiku:
     def to_s(self):
         self.is_valid()
         return ' / '.join(' '.join(self.phrases[i]) for i in xrange(len(self.phrases)))
-
-    def is_valid2(self):
-        return sum(Syllables(word).counts[0] for word in self.text) == sum(self.phrase_counts)
