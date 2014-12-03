@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import copy
 from node import Node
 from syllables import Syllables
 from tokenizer import Tokenizer
@@ -11,11 +12,12 @@ class Haiku:
 
     def __init__(self, text):
         self.text = self.tokenizer.tokenize(text)
-        self.phrases = [[], [], []]
+        self.phrases = None
         self.__is_valid = None
 
-    def _is_valid(self, words, total=0, level=0):
+    def _is_valid(self, words, total=0, level=0, phrases={}):
         if (not words) and (total == self.level_maxes[-1]):
+            self.phrases = phrases
             return True
         if not words:
             return False
@@ -29,10 +31,13 @@ class Haiku:
             if current_total > self.level_maxes[level]:
                 continue
 
-            self.phrases[level].append(word)
+            current_phrases = copy.deepcopy(phrases)
+            current_phrases[level] = current_phrases.get(level, [])
+            current_phrases[level].append(word)
+
             if current_total == self.level_maxes[level]:
                 level += 1
-            result = self._is_valid(remnants, current_total, level)
+            result = self._is_valid(remnants, current_total, level, current_phrases)
             if result:
                 return True
 
