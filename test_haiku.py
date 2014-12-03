@@ -25,7 +25,10 @@ class TestHaiku(unittest.TestCase):
         self.assertFalse(self.tricky_invalid_haiku.is_valid())
 
     def test_phrase_splitting(self):
-        pass
+        self.assertEqual(
+            self.valid_haiku.to_s(),
+            'at the age old pond / a frog leaps into water / a deep resonance'
+        )
 
 if __name__ == '__main__':
     unittest.main()

@@ -11,7 +11,8 @@ class Haiku:
 
     def __init__(self, text):
         self.text = self.tokenizer.tokenize(text)
-        self.phrases = self.phrases()
+        self.phrases = [[], [], []]
+        self.__is_valid = None
 
     def _is_valid(self, words, total=0, level=0):
         if (not words) and (total == self.level_maxes[-1]):
@@ -27,7 +28,9 @@ class Haiku:
             current_total = total + count
             if current_total > self.level_maxes[level]:
                 continue
-            elif current_total == self.level_maxes[level]:
+
+            self.phrases[level].append(word)
+            if current_total == self.level_maxes[level]:
                 level += 1
             result = self._is_valid(remnants, current_total, level)
             if result:
@@ -36,10 +39,14 @@ class Haiku:
         return False
 
     def is_valid(self):
-        return self._is_valid(self.text)
+        if self.__is_valid is None:
+            self.__is_valid = self._is_valid(self.text)
+
+        return self.__is_valid
+
+    def to_s(self):
+        self.is_valid()
+        return ' / '.join(' '.join(self.phrases[i]) for i in xrange(len(self.phrases)))
 
     def is_valid2(self):
         return sum(Syllables(word).counts[0] for word in self.text) == sum(self.phrase_counts)
-
-    def phrases(self):
-        return ()
