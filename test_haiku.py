@@ -26,7 +26,7 @@ class TestHaiku(unittest.TestCase):
 
     def test_phrase_splitting(self):
         self.assertEqual(
-            self.valid_haiku.to_s(),
+            self.valid_haiku.formatted(),
             'at the age old pond / a frog leaps into water / a deep resonance'
         )
 
@@ -34,7 +34,7 @@ class TestHaiku(unittest.TestCase):
         text = 'If you favorite that last tweet of mine you are the scum I called out'
         haiku = Haiku(text)
         self.assertEqual(
-            haiku.to_s(),
+            haiku.formatted(),
             'If you favorite / that last tweet of mine you are / the scum I called out'
         )
 

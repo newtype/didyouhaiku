@@ -6,13 +6,11 @@ from syllables import Syllables
 from tokenizer import Tokenizer
 
 class Haiku:
-    phrase_counts = (5, 7, 5)
     tokenizer = Tokenizer()
     level_maxes = [5, 12, 17]
 
     def __init__(self, text):
         self.text = self.tokenizer.tokenize(text)
-        self.phrases = None
         self.__is_valid = None
 
     def _is_valid(self, words, total=0, level=0, phrases={}):
@@ -49,6 +47,8 @@ class Haiku:
 
         return self.__is_valid
 
-    def to_s(self):
-        self.is_valid()
+    def formatted(self):
+        if not self.is_valid():
+            return ''
+
         return ' / '.join(' '.join(self.phrases[i]) for i in xrange(len(self.phrases)))
