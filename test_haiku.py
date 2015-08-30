@@ -8,6 +8,7 @@ class TestHaiku(unittest.TestCase):
         self.valid_haiku_multiple_prons = Haiku('word word probably {0}'.format('word ' * 12))
         self.invalid_haiku = Haiku('at the age old pond')
         self.tricky_invalid_haiku = Haiku('word word word elephant {0}'.format('word ' * 11))
+        self.haiku_with_oov = Haiku('at the age old pond a frog GROOOG leaps into water a deep resonance')
 
     def test_invalid_haiku(self):
         self.assertFalse(self.invalid_haiku.is_valid())
@@ -23,6 +24,9 @@ class TestHaiku(unittest.TestCase):
             between lines
         """
         self.assertFalse(self.tricky_invalid_haiku.is_valid())
+
+    def test_oov_word(self):
+        self.assertFalse(self.haiku_with_oov.is_valid())
 
     def test_phrase_splitting(self):
         self.assertEqual(
