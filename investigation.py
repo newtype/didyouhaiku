@@ -18,7 +18,9 @@ for line in open('sample'):
     continue
 
   try:
-    if Haiku(tweet['text']).is_valid():
-      print(tweet['text'])
-  except:
+    haiku = Haiku(tweet['text'])
+    if haiku.is_valid():
+      print(haiku.formatted())
+  except Exception as e:
     print("error: " + tweet['text'], file=sys.stderr)
+    print(e, file=sys.stderr)
