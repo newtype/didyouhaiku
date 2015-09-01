@@ -6,8 +6,7 @@ import codecs
 import sys
 
 from tweepy.streaming import StreamListener
-from tweepy import OAuthHandler
-from tweepy import Stream
+from tweepy import OAuthHandler, Stream, API
 
 from haiku import Haiku
 
@@ -20,10 +19,15 @@ class HaikuListener(StreamListener):
         try:
             haiku = Haiku(tweet['text'])
             if haiku.is_valid():
-                print haiku.formatted()
+                retweet = self._retweet_string(tweet, haiku)
+                twitter.update_status(status=retweet)
+                print retweet
                 stream.disconnect()
         except Exception as e:
-            return
+            print e
+
+    def _retweet_string(self, tweet, haiku):
+        return haiku.formatted() + "\n#accidentalhaiku by @{}".format(tweet['user']['screen_name'])
 
 
 access_token = os.environ['TWITTER_ACCESS_TOKEN']
@@ -34,6 +38,7 @@ consumer_secret = os.environ['TWITTER_CONSUMER_SECRET']
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 stream = Stream(auth, HaikuListener())
+twitter = API(auth)
 
 
 if __name__ == '__main__':
