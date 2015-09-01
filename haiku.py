@@ -51,4 +51,4 @@ class Haiku:
         if not self.is_valid():
             return ''
 
-        return ' / '.join(' '.join(self.phrases[i]) for i in xrange(len(self.phrases)))
+        return ' /\n'.join(' '.join(self.phrases[i]) for i in xrange(len(self.phrases)))
