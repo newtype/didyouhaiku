@@ -1,2 +1,7 @@
-tweepy==3.4.0
+bottle==0.12.8
 nltk==3.0.4
+oauthlib==1.0.3
+requests==2.7.0
+requests-oauthlib==0.5.0
+six==1.9.0
+tweepy==3.4.0
